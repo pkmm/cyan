@@ -19,6 +19,7 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
-    "vue-waterfall": "^1.0.6"
+    "vue-waterfall": "^1.0.6",
+    "webpack-dev-server": "^3.3.1"
   }
 }
