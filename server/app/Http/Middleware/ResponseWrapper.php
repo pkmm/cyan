@@ -25,7 +25,11 @@ class ResponseWrapper
 
         if (!is_null($ret)) {
             if (empty($ret->result) || empty($ret->error) || empty($ret->message)) {
-                $ret = array('result' => 1, 'response' => $ret);
+                $ret = [
+                    'code' => 0,
+                    'msg' => 'success',
+                    'data' => $ret
+                ];
             }
         }
         $response->setContent($ret);

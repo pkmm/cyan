@@ -53,11 +53,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        //        return parent::render($request, $exception);
         $response = ['result' => 0];
         if ($exception instanceof RequestFailedException) {
-            $response['error'] = $exception->errorCode;
-            $response['message'] = $exception->getMessage();
+            $response['code'] = $exception->errorCode;
+            $response['msg'] = $exception->getMessage();
             if (!empty($exception->data)) {
                 $response['data'] = $exception->data;
             }
@@ -67,9 +66,9 @@ class Handler extends ExceptionHandler
             return parent::render($request, $exception);
         }
         return response([
-            'result' => 0,
-            'error' => ErrorCode::INNER_ERROR,
-            'message' => 'some thing goes wrong',
+            'code' => ErrorCode::INNER_ERROR,
+            'msg' => 'internal server error',
+            'data' => null,
         ]);
     }
 

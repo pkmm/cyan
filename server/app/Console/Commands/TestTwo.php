@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SyncZcmuEducationSystemInfo;
+use App\Model\User;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 
 class TestTwo extends Command
 {
@@ -37,5 +40,14 @@ class TestTwo extends Command
      */
     public function handle()
     {
+        User::with(['student'])->chunk(1000, function (Collection $users) {
+            /** @var User $user */
+            foreach ($users as $user) {
+                $student = $user->student;
+                if ($student) {
+                    dispatch(new SyncZcmuEducationSystemInfo($student));
+                }
+            }
+        });
     }
 }

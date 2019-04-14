@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
     /*
@@ -164,6 +165,10 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
+
+        \App\Providers\VerifyCodeRecognizeProvider::class,
+
+
         /*
          * Package Service Providers...
          */
@@ -186,7 +191,6 @@ return [
          * easy wechat sdk.
          */
         Overtrue\LaravelWeChat\ServiceProvider::class,
-
 
     ],
 

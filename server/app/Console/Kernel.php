@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
     {
         //        $this->notify($schedule);
         $schedule->command('test:one')->everyMinute()->runInBackground();
-        $schedule->command('test:two')->everyMinute()->runInBackground();
+        $schedule->command('test:two')->everyTenMinutes()->runInBackground()->withoutOverlapping();
         $schedule->call(function () {
             self::getZcmuNewInfos();
         })->everyTenMinutes();
