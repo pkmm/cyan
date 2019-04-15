@@ -21,18 +21,20 @@ class ResponseWrapper
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        $ret = $response->original;
-
-        if (!is_null($ret)) {
-            if (empty($ret->result) || empty($ret->error) || empty($ret->message)) {
-                $ret = [
-                    'code' => 0,
-                    'msg' => 'success',
-                    'data' => $ret
-                ];
-            }
-        }
-        $response->setContent($ret);
+        //        if (is_null($response->exception)) {
+        //            $ret = [
+        //                'code' => 0,
+        //                'msg' => 'success',
+        //                'data' => $response->original
+        //            ];
+        //        } else {
+        //            $ret = [
+        //                'code' => ErrorCode::INNER_ERROR,
+        //                'msg' => 'error',
+        //                'data' => null,
+        //            ];
+        //        }
+        //        $response->setContent($ret);
         return $response;
     }
 }
