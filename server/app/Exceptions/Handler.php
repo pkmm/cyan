@@ -62,7 +62,7 @@ class Handler extends ExceptionHandler
             }
             return response($response);
         }
-        if (env('APP_ENV') != 'prod') {
+        if (config('app.env') != 'prod') {
             return parent::render($request, $exception);
         }
         return response([
