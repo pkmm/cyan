@@ -33,11 +33,18 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //        $this->notify($schedule);
-        $schedule->command('test:one')->everyMinute()->runInBackground();
-        $schedule->command('test:two')->everyTenMinutes()->runInBackground()->withoutOverlapping();
-        $schedule->call(function () {
-            self::getZcmuNewInfos();
-        })->everyTenMinutes();
+        //        $schedule->command('test:one')->everyMinute()->runInBackground();
+
+
+        $schedule->command('test:two')
+                 ->everyTenMinutes()
+                 ->runInBackground()
+                 ->withoutOverlapping();
+
+
+        //        $schedule->call(function () {
+        //            self::getZcmuNewInfos();
+        //        })->everyTenMinutes();
     }
 
     private function getZcmuNewInfos()
