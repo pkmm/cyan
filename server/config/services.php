@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'verifycode' => [
+        'host' => env('VERIFY_CODE_SERVER')
+    ]
+
 ];

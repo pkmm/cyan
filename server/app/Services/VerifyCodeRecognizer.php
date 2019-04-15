@@ -21,7 +21,7 @@ class VerifyCodeRecognizer implements VerifyCodeRecognizeInterface
     {
         $client = new Client();
         $ret = HttpRequestWrapper::wrapper(function () use ($client, $imageStringContent) {
-            $response = $client->post(env('VERIFY_CODE_SERVER'), [
+            $response = $client->post(config('services.verifycode.host'), [
                 'multipart' => [
                     [
                         'name' => 'img',

@@ -14,6 +14,9 @@ composer dump-autoload
 #chmod -R 777 bootstrap/
 
 
+
+php artisan clear-compiled
+
 # 缓存配置文件
 php artisan config:clear
 php artisan route:clear
