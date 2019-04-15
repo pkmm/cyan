@@ -27,3 +27,7 @@ php artisan optimize
 
 php artisan route:cache
 php artisan config:cache
+
+
+#重新启动队列监听器
+supervisorctl restart cyan-worker:*
