@@ -185,7 +185,7 @@ return [
         //        Excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
         // Swoole Http
-        //        SwooleTW\Http\LaravelServiceProvider::class,
+        SwooleTW\Http\LaravelServiceProvider::class,
 
         /**
          * easy wechat sdk.
