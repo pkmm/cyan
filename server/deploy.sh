@@ -31,3 +31,5 @@ php artisan config:cache
 
 #重新启动队列监听器
 supervisorctl restart cyan-worker:*
+# 重新启动swoole http 代理 需自己配好supervisor
+supervisorctl restart laravel_swoole_http
