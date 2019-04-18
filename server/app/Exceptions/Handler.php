@@ -53,7 +53,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        $response = ['result' => 0];
         if ($exception instanceof RequestFailedException) {
             $response['code'] = $exception->errorCode;
             $response['msg'] = $exception->getMessage();

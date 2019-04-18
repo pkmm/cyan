@@ -82,6 +82,10 @@ class ZcmuEducationSystem implements EducationSystemInterface
     }
 
     // 输入筛选条件 查询成绩
+
+    /**
+     * @throws CanNotDecodeViewStateException
+     */
     public function pressQuerySchoolReportButton()
     {
         $viewState = $this->getViewStateFromHtmlPage($this->currentPage);
@@ -119,6 +123,10 @@ class ZcmuEducationSystem implements EducationSystemInterface
         return mb_convert_encoding($html, 'utf-8', 'gb2312');
     }
 
+    /**
+     * @return array
+     * @throws GetSchoolReportException
+     */
     private function retrieveSchoolReport()
     {
         $html = htmlspecialchars_decode($this->currentPage);
@@ -153,6 +161,12 @@ class ZcmuEducationSystem implements EducationSystemInterface
         return $scores;
     }
 
+    /**
+     * @return array
+     * @throws CanNotDecodeViewStateException
+     * @throws GetSchoolReportException
+     * @throws GetUrlOfGetSchoolReportFailedException
+     */
     public function getSchoolReport(): array
     {
         $this->login();
@@ -167,6 +181,10 @@ class ZcmuEducationSystem implements EducationSystemInterface
     }
 
     // 点击 ‘查询信息’ 按钮.
+
+    /**
+     * @throws GetUrlOfGetSchoolReportFailedException
+     */
     private function pressQueryInformationButton()
     {
         // 1. 获取成绩的按钮的地址
