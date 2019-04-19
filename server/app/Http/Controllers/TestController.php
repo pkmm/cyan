@@ -24,7 +24,8 @@ class TestController extends Controller
                 return [];
             }
             $scores = $student->scores;
-            Cache::forever($redisKey, json_encode($scores));
+            $ret = json_encode($scores);
+            Cache::forever($redisKey, $ret);
         }
 
         return json_decode($ret);
