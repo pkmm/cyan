@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Student whereUpdatedAt($value)
  * @method static Builder|Student whereUserId($value)
  * @mixin Eloquent
+ * @property int $can_sync
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereCanSync($value)
  */
 class Student extends Model implements StudentInterface
 {

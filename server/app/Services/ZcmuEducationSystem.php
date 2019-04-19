@@ -22,6 +22,15 @@ class ZcmuEducationSystem implements EducationSystemInterface
     const DEFAULT_URL = 'default2.aspx';
     const USER_AGENT = 'cyan phone';
     const VIEW_STATE = '__VIEWSTATE';
+
+
+    const PASSWORD_WRONG = '密码错误！！';
+    const VERIFY_CODE_WRONG = '验证码不正确！！';
+    const PASSWORD_WRONG_EXCESS_LIMIT = '密码错误，您密码输入错误已达\d次，账号已锁定无法登录，次日自动解锁！如忘记密码，请与学院教学秘书联系!';
+    const PASSWORD_WRONG_SOMETIMES = '密码错误，您还有\d次尝试机会！如忘记密码，请与学院教学秘书联系!';
+    const ACCOUNT_NOT_VALID = '用户名不存在或未按照要求参加教学活动！！';
+
+
     /** @var StudentInterface */
     private $student;
     /** @var VerifyCodeRecognizeInterface */
@@ -33,6 +42,8 @@ class ZcmuEducationSystem implements EducationSystemInterface
     private $currentPage; // 当前的页面
 
     private $schoolReportUrl;
+
+    private $loginErrorMsg = null;
 
 
     public function __construct(StudentInterface $student, VerifyCodeRecognizeInterface $verifyCodeRecognize)
@@ -47,7 +58,39 @@ class ZcmuEducationSystem implements EducationSystemInterface
         ]);
     }
 
+    public function getLoginFailedReason()
+    {
+        return $this->loginErrorMsg;
+    }
 
+    /**
+     * check status after login action.
+     */
+    private function checkAccountStatus()
+    {
+        $patterns = [
+            self::VERIFY_CODE_WRONG,
+            self::PASSWORD_WRONG,
+            self::ACCOUNT_NOT_VALID,
+            self::PASSWORD_WRONG_EXCESS_LIMIT,
+            self::PASSWORD_WRONG_SOMETIMES
+        ];
+        $hasError = false;
+        foreach ($patterns as $pattern) {
+            preg_match("/{$pattern}/us", $this->currentPage, $matches);
+            if (!empty($matches)) {
+                $this->loginErrorMsg = $matches[0];
+                $hasError = true;
+                break;
+            }
+        }
+        return $hasError;
+    }
+
+    /**
+     * @return bool
+     * @throws CanNotDecodeViewStateException
+     */
     public function login()
     {
         //1. open main page and get viewState from page.
@@ -77,8 +120,10 @@ class ZcmuEducationSystem implements EducationSystemInterface
                 'Referer' => self::MAIN_PAGE_URL,
             ]
         ])->getBody()->getContents();
+        // after post login.
         $this->currentPage = $this->convertToUtf8FromGb2312($html);
-
+        // check if login successful or if an error occurs.
+        return $this->checkAccountStatus();
     }
 
     // 输入筛选条件 查询成绩
@@ -105,6 +150,11 @@ class ZcmuEducationSystem implements EducationSystemInterface
         $this->currentPage = $this->convertToUtf8FromGb2312($html);
     }
 
+    /**
+     * @param string $html
+     * @return string
+     * @throws CanNotDecodeViewStateException
+     */
     private function getViewStateFromHtmlPage(string $html): string
     {
         preg_match(
@@ -118,6 +168,10 @@ class ZcmuEducationSystem implements EducationSystemInterface
         throw new CanNotDecodeViewStateException("无法获取viewState");
     }
 
+    /**
+     * @param string $html
+     * @return false|string|string[]|null
+     */
     private function convertToUtf8FromGb2312(string $html)
     {
         return mb_convert_encoding($html, 'utf-8', 'gb2312');
@@ -175,6 +229,9 @@ class ZcmuEducationSystem implements EducationSystemInterface
         return $this->retrieveSchoolReport();
     }
 
+    /**
+     * @return StudentInterface
+     */
     public function getStudent(): StudentInterface
     {
         return $this->student;
