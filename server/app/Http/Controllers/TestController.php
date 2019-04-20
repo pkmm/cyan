@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Contracts\VerifyCodeRecognizeInterface;
 use App\Model\User;
-use App\Services\ZcmuEducationSystem;
 use Cache;
 use Illuminate\Http\Request;
 
@@ -13,9 +12,7 @@ class TestController extends Controller
 {
     public function test(Request $request, VerifyCodeRecognizeInterface $verifyCodeRecognize)
     {
-
-
-        $userId = (int) $request->get('user_id', 2);
+        $userId = (int)$request->get('user_id', 2);
         $redisKey = "userId:$userId:scores";
         if (!($ret = Cache::get($redisKey))) {
             $user = User::find($userId);
