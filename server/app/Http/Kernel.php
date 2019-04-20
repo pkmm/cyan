@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Auth;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -36,6 +35,7 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
+        ResponseWrapper::class,
     ];
 
     /**

@@ -38,4 +38,10 @@ class StringUtils
         $str = str_replace("&rdquo;", "”", $str);
         return $str;
     }
+
+    public static function md5String(string ...$salts)
+    {
+        $str = implode('', $salts);
+        return md5($str);
+    }
 }

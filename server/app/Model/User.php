@@ -13,6 +13,7 @@ use Eloquent;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * App\Model\User
@@ -33,11 +34,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
  * @mixin Eloquent
+ * @property string $openid
+ * @method static Builder|User whereOpenid($value)
  */
-class User extends Model implements Authenticatable
+class User extends Model implements Authenticatable, JWTSubject
 {
     use \Illuminate\Auth\Authenticatable;
     public $table = 'users';
+
+    protected $hidden = ['password', 'salt'];
 
     public function getRememberToken()
     {
@@ -62,5 +67,25 @@ class User extends Model implements Authenticatable
     public function wechatUser()
     {
         return $this->hasOne(WechatUser::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

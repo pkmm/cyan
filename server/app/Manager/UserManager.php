@@ -7,6 +7,9 @@
 namespace App\Manager;
 
 use App\Model\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class UserManager
 {
@@ -36,6 +39,23 @@ class UserManager
     public static function getUser(int $userId): ?User
     {
         $user = User::whereId($userId)->first();
+        return $user;
+    }
+
+    /**
+     * @param string $openid
+     * @return User|Builder|Model|null
+     */
+    public static function findUserOrNew(string $openid)
+    {
+        $user = User::whereOpenid($openid)->first();
+        if (!$user) {
+            $user = new User();
+            $user->openid = $openid;
+            $user->password = bcrypt('123456');
+            $user->salt = Str::random(10);
+            $user->save();
+        }
         return $user;
     }
 }

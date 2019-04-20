@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UserNotLoginException;
 use Redirect;
 
 class HomeController extends Controller
@@ -25,4 +26,13 @@ class HomeController extends Controller
     {
         return Redirect::to("/admin");
     }
+
+    /**
+     * @throws UserNotLoginException
+     */
+    public function needLogin()
+    {
+        throw new UserNotLoginException();
+    }
+
 }

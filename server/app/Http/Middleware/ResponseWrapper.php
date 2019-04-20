@@ -6,6 +6,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Constants\ErrorCodes;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -21,20 +22,15 @@ class ResponseWrapper
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        //        if (is_null($response->exception)) {
-        //            $ret = [
-        //                'code' => 0,
-        //                'msg' => 'success',
-        //                'data' => $response->original
-        //            ];
-        //        } else {
-        //            $ret = [
-        //                'code' => ErrorCode::INNER_ERROR,
-        //                'msg' => 'error',
-        //                'data' => null,
-        //            ];
-        //        }
-        //        $response->setContent($ret);
+        if (is_null($response->exception)) {
+            $ret = [
+                'code' => ErrorCodes::SUCCESS,
+                'msg' => 'success',
+                'data' => $response->original
+            ];
+            $response->setContent(json_encode($ret));
+            return $response;
+        }
         return $response;
     }
 }

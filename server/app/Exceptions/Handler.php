@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\Constants\ErrorCode;
+use App\Constants\ErrorCodes;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -58,6 +58,8 @@ class Handler extends ExceptionHandler
             $response['msg'] = $exception->getMessage();
             if (!empty($exception->data)) {
                 $response['data'] = $exception->data;
+            } else {
+                $response['data'] = null;
             }
             return response($response);
         }
@@ -65,7 +67,7 @@ class Handler extends ExceptionHandler
             return parent::render($request, $exception);
         }
         return response([
-            'code' => ErrorCode::INNER_ERROR,
+            'code' => ErrorCodes::INNER_ERROR,
             'msg' => 'internal server error',
             'data' => null,
         ]);

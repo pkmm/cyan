@@ -6,12 +6,12 @@
 
 namespace App\Exceptions;
 
-use App\Constants\ErrorCode;
+use App\Constants\ErrorCodes;
 
 class InvalidRequestParameters extends RequestFailedException
 {
     public function __construct($message)
     {
-        parent::__construct($message, ErrorCode::INVALID_REQUEST_PARAMETERS);
+        parent::__construct($message, ErrorCodes::INVALID_REQUEST_PARAMETERS);
     }
 }

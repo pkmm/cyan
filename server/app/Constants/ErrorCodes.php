@@ -6,8 +6,10 @@
 
 namespace App\Constants;
 
-class ErrorCode
+class ErrorCodes
 {
+    const SUCCESS = 0;
     const INNER_ERROR = 1000;
     const INVALID_REQUEST_PARAMETERS = 10001;
+    const USER_NOT_LOGIN = 10002;
 }

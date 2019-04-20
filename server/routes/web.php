@@ -13,6 +13,8 @@
 
 
 Route::get('/', 'HomeController@index');
+Route::any('/login', ['as' => 'login', 'uses' => 'HomeController@needLogin']);
+
 
 // 微信
 Route::any('/wechat', 'WeChatController@serve');

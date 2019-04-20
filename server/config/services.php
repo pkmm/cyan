@@ -37,6 +37,12 @@ return [
 
     'verifycode' => [
         'host' => env('VERIFY_CODE_SERVER')
+    ],
+
+    'mini_program' => [
+        'app_id' => env('MINIPROGRAM_APP_ID'),
+        'secret' => env('MINIPROGRAM_SECRET'),
+        'random_str' => env('MINI_PROGRAM_REQUEST_RANDOM_STR')
     ]
 
 ];
