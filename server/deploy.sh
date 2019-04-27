@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 # 同步代码
+git add *
+git stash
 git pull
 
 # update composer 
