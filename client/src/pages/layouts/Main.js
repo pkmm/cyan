@@ -24,6 +24,7 @@ class Main extends Component {
   };
 
   render() {
+    const {match} = this.props;
     return (
       <Layout style={{height: "100vh"}}>
         <Sider
@@ -47,7 +48,7 @@ class Main extends Component {
                 return <Item key={r.path}>
                   <Icon type={r.icon}/>
                   <span>{r.show}</span>
-                  <Link to={r.path}/>
+                  <Link to={match.url + '/' + r.path}/>
                 </Item>
               })
             }
@@ -65,7 +66,7 @@ class Main extends Component {
             margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, overflow: 'inherit'
           }}
           >
-            <RouterToContent/>
+            <RouterToContent {...this.props} />
           </Content>
           {/*<Footer>Cyan</Footer>*/}
         </Layout>

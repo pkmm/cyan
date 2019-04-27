@@ -13,7 +13,7 @@ commonConfig = {
     path: path.join(__dirname, '../server/public/admin/'),
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
-    publicPath: "/admin"
+    publicPath: "/admin/"
   },
   module: {
     rules: [{
