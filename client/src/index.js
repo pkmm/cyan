@@ -1,12 +1,35 @@
+
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import MRoute from './routes/index';
+import ReactDom from 'react-dom';
+import {AppContainer} from 'react-hot-loader';
+import getRouter from 'router/Router';
+import {BrowserRouter as Router} from 'react-router-dom';
+import {Provider} from 'mobx-react';
+import * as stores from 'stores/Index';
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+// import 'assets/css/app.scss'
 
-import registerServiceWorker from './registerServiceWorker';
+/*初始化*/
+renderWithHotReload(getRouter());
 
-ReactDOM.render(
-    <MRoute />,
-    document.getElementById('root')
-);
-registerServiceWorker();
+/*热更新*/
+if (module.hot) {
+    module.hot.accept('router/router', () => {
+        const getRouter = require('router/Router').default;
+        renderWithHotReload(getRouter());
+    });
+}
+
+function renderWithHotReload(RootElement) {
+    ReactDom.render(
+        <AppContainer>
+            <Provider {...stores}>
+                <Router>
+                    {RootElement}
+                </Router>
+            </Provider>
+        </AppContainer>,
+        document.getElementById('app')
+    );
+    OfflinePluginRuntime.install();
+}
