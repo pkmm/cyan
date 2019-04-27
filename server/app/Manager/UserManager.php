@@ -46,7 +46,7 @@ class UserManager
      * @param string $openid
      * @return User|Builder|Model|null
      */
-    public static function findUserOrNew(string $openid)
+    public static function findUserOrNewByOpenId(string $openid)
     {
         $user = User::whereOpenid($openid)->first();
         if (!$user) {
@@ -56,6 +56,31 @@ class UserManager
             $user->salt = Str::random(10);
             $user->save();
         }
+        return $user;
+    }
+
+    /**
+     * @param string $username
+     * @return User|Builder|Model|null
+     */
+    public static function getUserByName(string $username)
+    {
+        return User::whereUsername($username)->first();
+    }
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @return User
+     */
+    public static function createUserFromWeb(string $username, string $password)
+    {
+        $salt = Str::random(6);
+        $user = new User();
+        $user->username = $username;
+        $user->password = bcrypt($salt . $password);
+        $user->salt = $salt;
+        $user->save();
         return $user;
     }
 }

@@ -12,4 +12,7 @@ class ErrorCodes
     const INNER_ERROR = 1000;
     const INVALID_REQUEST_PARAMETERS = 10001;
     const USER_NOT_LOGIN = 10002;
+    const LOGIN_FAILED = 10003;
+    const USER_NOT_FOUND = 10004;
+    const USER_REGISTER_FAILED = 10005;
 }

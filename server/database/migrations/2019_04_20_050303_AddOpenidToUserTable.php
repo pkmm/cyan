@@ -14,7 +14,10 @@ class AddOpenidToUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('openid', '128')->nullable()->after('username')->index();
+            $table->string('openid', '128')
+                  ->nullable()
+                  ->after('username')
+                  ->unique('uk_openid');
         });
     }
 
@@ -27,6 +30,7 @@ class AddOpenidToUserTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('openid');
+            $table->dropIndex('uk_openid');
         });
     }
 }

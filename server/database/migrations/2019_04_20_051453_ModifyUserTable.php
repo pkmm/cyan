@@ -14,7 +14,10 @@ class ModifyUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('username')->nullable()->change();
+            $table->string('username', 64)
+                  ->nullable()
+                  ->unique('uk_username')
+                  ->change();
         });
     }
 
@@ -27,6 +30,7 @@ class ModifyUserTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('username')->change();
+            $table->dropIndex('uk_username');
         });
     }
 }
