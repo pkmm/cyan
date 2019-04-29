@@ -31,7 +31,6 @@ sideMenuRouters = sideMenuRouters.sort((x, y) => x.order - y.order);
 // 组件渲染到页面
 const RouterToContent = (props) => {
   const {match} = props;
-  console.error(props)
   return (
     <Switch>
       {
@@ -44,7 +43,7 @@ const RouterToContent = (props) => {
         ))
       }
       {/*保证admin页面能渲染 dashboard 页面*/}
-      <Route path={match.url} exact component={sideMenuRouters[0].component} />
+      <Route path={match.url} exact component={Dashboard} />
       <Route component={createComponent(NotFound)}/>
     </Switch>
   );

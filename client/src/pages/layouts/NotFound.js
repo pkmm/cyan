@@ -12,7 +12,7 @@ export default class NotFound extends Component {
             // style={{width: 300}}
             cover={<img src={cheng}/>}
           >
-            <Card.Meta title={'Error'} description={'找不到页面'}/>
+            <Card.Meta title={'出了点问题'} description={'无法找到对应的页面'}/>
           </Card>
         </Col>
       </Row>

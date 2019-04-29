@@ -15,4 +15,5 @@ class ErrorCodes
     const LOGIN_FAILED = 10003;
     const USER_NOT_FOUND = 10004;
     const USER_REGISTER_FAILED = 10005;
+    const USERNAME_ALREADY_USED = 10006;
 }

@@ -4,16 +4,21 @@ import {RouterToContent, sideMenuRouters} from 'pages/layouts/Sider';
 import './Main.less';
 import {Link, withRouter} from 'react-router-dom';
 
-const {Header, Sider, Content, Footer} = Layout;
-const {SubMenu, Item} = Menu;
+const {Header, Sider, Content} = Layout;
+const {Item} = Menu;
+
+
+const SEDER_MENU_CLICKED = 'sider_menu_clicked'
 
 @withRouter
 class Main extends Component {
+
   constructor(props) {
     super(props);
+    const lastPath = window.localStorage.getItem(SEDER_MENU_CLICKED);
     this.state = {
       collapsed: false,
-      selectedKeys: [sideMenuRouters[0].path]
+      selectedKeys: [lastPath ? lastPath : sideMenuRouters[0].path]
     };
   }
 
@@ -37,9 +42,9 @@ class Main extends Component {
           <Menu
             mode={'inline'}
             theme={'dark'}
-            defaultSelectedKeys={[sideMenuRouters[0].path]}
             selectedKeys={this.state.selectedKeys}
             onClick={({key, keyPath}) => {
+              window.localStorage.setItem(SEDER_MENU_CLICKED, keyPath);
               this.setState({selectedKeys: keyPath})
             }}
           >
