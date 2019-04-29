@@ -10,9 +10,6 @@ class Dashboard extends Component {
   render() {
     return (
       <div>some thing here. this is dashboard page content.
-        {
-          [...Array(467).keys()].map(i => <div>{i}</div>)
-        }
       </div>
     );
   }
