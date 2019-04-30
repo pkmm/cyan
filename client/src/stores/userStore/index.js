@@ -3,9 +3,10 @@ import {apiPost} from "../../utils/api-requester";
 import {API} from "../../utils/api-list";
 import {message} from 'antd'
 
+const USER_TOKEN = 'token';
 class UserStore {
   @observable userInfo = {};
-  @observable isLogin = false;
+  @observable isLogin = window.localStorage.getItem(USER_TOKEN) || false;
 
   @computed get token() {
     return this.userInfo.token || null;
@@ -23,7 +24,7 @@ class UserStore {
         message.success('登陆成功');
         this.isLogin = true;
         this.userInfo = resp.data.data;
-        window.localStorage.setItem('token', resp.data.data.access_token);
+        window.localStorage.setItem(USER_TOKEN, resp.data.data.access_token);
       })
     } catch (e) {
       message.error('登陆失败');
@@ -32,6 +33,13 @@ class UserStore {
         //todo
       })
     }
+  };
+
+  @action logout = () => {
+    window.localStorage.setItem(USER_TOKEN, '');
+    this.isLogin = false;
+    this.userInfo = {};
+    message.success('登出成功');
   }
 }
 
