@@ -8,7 +8,7 @@ import NotFound from 'bundle-loader?lazy&name=notFound!pages/layouts/notFound';
 // 侧边栏的路由
 let sideMenuRouters = [
   {
-    path: 'index.js', // 页面的路径
+    path: 'profile', // 页面的路径
     component: Profile, // 对应的组件
     icon: 'user', // antd icon
     show: '我的信息', // 显示的文字
