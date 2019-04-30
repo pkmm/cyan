@@ -2,10 +2,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
-import getRouter from 'router/Router';
+import getRouter from 'router/router';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {Provider} from 'mobx-react';
-import * as stores from 'stores/Index';
+import * as stores from 'stores';
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 // import 'assets/css/app.scss'
 
@@ -15,7 +15,7 @@ renderWithHotReload(getRouter());
 /*热更新*/
 if (module.hot) {
     module.hot.accept('router/router', () => {
-        const getRouter = require('router/Router').default;
+        const getRouter = require('router/router').default;
         renderWithHotReload(getRouter());
     });
 }

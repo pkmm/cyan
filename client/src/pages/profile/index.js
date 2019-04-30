@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 
-class Profile extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -13,4 +13,4 @@ class Profile extends Component {
   }
 };
 
-export default Profile;
+export default Index;

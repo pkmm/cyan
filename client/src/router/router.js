@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
-import createComponent from './LazyLoad';
+import createComponent from './lazyLoad';
 
-import App from 'pages/App';
+import App from 'pages/app';
 import NotFound from 'bundle-loader?lazy&name=notFound!pages/layouts/notFound';
 
 const getRouter = () => (

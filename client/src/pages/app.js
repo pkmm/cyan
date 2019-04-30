@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import Main from './layouts/Main'
-import Login from "./login/Login";
+import Main from './layouts/main'
+import Login from "./login/login";
 import {inject, observer} from 'mobx-react'
 
 @inject('UserStore') @observer

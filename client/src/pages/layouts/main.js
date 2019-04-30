@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Icon, Layout, Menu} from 'antd';
-import {RouterToContent, sideMenuRouters} from 'pages/layouts/Sider';
-import './Main.less';
+import {RouterToContent, sideMenuRouters} from 'pages/layouts/sider';
+import './main.less';
 import {Link, withRouter} from 'react-router-dom';
 
 const {Header, Sider, Content} = Layout;

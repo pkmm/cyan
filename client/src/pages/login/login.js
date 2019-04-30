@@ -4,7 +4,7 @@ import {inject, observer} from 'mobx-react'
 import {Button, Checkbox, Form, Icon, Input,} from 'antd';
 import './index.css'
 
-@withRouter @observer @inject('UserStore')
+@withRouter @observer @inject('userStore')
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +14,7 @@ class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      !err && this.props.UserStore.loginAction(values.username,values.password);
+      !err && this.props.userStore.loginAction(values.username,values.password);
     });
   };
 

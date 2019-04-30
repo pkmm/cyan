@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Loading from 'components/loading/Loading';
-import Bundle from './Bundle'
+import Loading from 'components/loading/loading';
+import Bundle from './bundle'
 //懒加载
 const createComponent = component => props => (
     <Bundle load={component}>
