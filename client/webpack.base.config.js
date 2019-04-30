@@ -5,7 +5,7 @@ const webpack = require('webpack');
 commonConfig = {
   entry: {
     app: [
-      path.join(__dirname, 'src/Index.js')
+      path.join(__dirname, 'src/index.js')
     ],
     vendor2: ['react', 'react-router-dom', 'mobx', 'react-dom', 'mobx-react']//分离第三方库,可自定义增加
   },
