@@ -1,5 +1,5 @@
-import Index from "../profile";
-import Index from "../dashboard";
+import Profile from "../profile";
+import Dashboard from "../dashboard";
 import {Route, Switch} from 'react-router-dom'
 import React from 'react'
 import createComponent from "../../router/lazyLoad";
@@ -9,14 +9,14 @@ import NotFound from 'bundle-loader?lazy&name=notFound!pages/layouts/notFound';
 let sideMenuRouters = [
   {
     path: 'index.js', // 页面的路径
-    component: Index, // 对应的组件
+    component: Profile, // 对应的组件
     icon: 'user', // antd icon
     show: '我的信息', // 显示的文字
     order: 2, // 显示的排序
   },
   {
     path: 'dashboard',
-    component: Index,
+    component: Dashboard,
     icon: 'dashboard',
     show: '概览',
     order: -5651,
@@ -43,7 +43,7 @@ const RouterToContent = (props) => {
         ))
       }
       {/*保证admin页面能渲染 dashboard 页面*/}
-      <Route path={match.url} exact component={Index} />
+      <Route path={match.url} exact component={Dashboard} />
       <Route component={createComponent(NotFound)}/>
     </Switch>
   );
