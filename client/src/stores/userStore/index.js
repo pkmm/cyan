@@ -3,7 +3,7 @@ import {apiPost} from "../../utils/api-requester";
 import {API} from "../../utils/api-list";
 import {message} from 'antd'
 
-class Index {
+class UserStore {
   @observable userInfo = {};
   @observable isLogin = false;
 
@@ -35,4 +35,4 @@ class Index {
   }
 }
 
-export default new Index();
+export default new UserStore();
