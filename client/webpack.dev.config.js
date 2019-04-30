@@ -8,7 +8,7 @@ const devUrl = 'http://localhost:3001/admin';
 const GLOBALS = {
     'process.env': {
         NODE_ENV: JSON.stringify('development'),
-        BASE_URL: JSON.stringify('http://localhost:8089'),
+        BASE_URL: JSON.stringify('http://192.168.31.191:8089/api'),
     }
 };
 

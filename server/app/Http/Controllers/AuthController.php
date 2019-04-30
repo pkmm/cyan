@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 use App\Constants\enums\DeviceType;
 use App\Exceptions\InvalidRequestParameters;
 use App\Exceptions\LoginFailedException;
+use App\Exceptions\UserExists;
 use App\Exceptions\UserNotFoundException;
 use App\Exceptions\UserRegisterFailedException;
 use App\Manager\UserManager;
@@ -28,6 +29,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return User|null
      * @throws InvalidRequestParameters
+     * @throws UserExists
      * @throws UserRegisterFailedException
      */
     public function register(Request $request)
@@ -50,6 +52,7 @@ class AuthController extends Controller
     /**
      * @return User
      * @throws InvalidRequestParameters
+     * @throws UserExists
      */
     private function registerFromWeb()
     {
@@ -58,6 +61,12 @@ class AuthController extends Controller
         if (empty($username) || empty($password)) {
             throw new InvalidRequestParameters('用户名与密码不能为空');
         }
+        // 用户名唯一
+        $user = UserManager::getUserByName($username);
+        if ($user) {
+            throw new UserExists('用户名已经被使用~');
+        }
+
         $user = UserManager::createUserFromWeb($username, $password);
         return $user;
     }
@@ -102,7 +111,7 @@ class AuthController extends Controller
         if (!$user) {
             throw new UserNotFoundException("未找到用户$username");
         } else {
-            if ($user->password !== bcrypt($user->salt . $password)) {
+            if (!app('hash')->check($user->salt . $password, $user->password)) {
                 throw new LoginFailedException('密码或者用户名错误！');
             }
         }

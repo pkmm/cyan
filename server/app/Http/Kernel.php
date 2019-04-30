@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\CrosMiddleware;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\ResponseWrapper;
@@ -36,6 +37,7 @@ class Kernel extends HttpKernel
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         ResponseWrapper::class,
+        CrosMiddleware::class,
     ];
 
     /**
