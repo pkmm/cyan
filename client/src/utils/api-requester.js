@@ -2,7 +2,7 @@ import qs from 'qs';
 import axios from 'axios'
 import {BASE_URL} from "../config";
 import {isPlainObject} from 'lodash/lang';
-import {DeviceType} from "../Constants/DeviceType";
+import {DeviceType} from "../constants/deviceType";
 
 /**
  * @param {axios} ax

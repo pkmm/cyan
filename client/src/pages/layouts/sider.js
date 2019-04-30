@@ -1,9 +1,10 @@
-import Profile from "../profile/Profile";
-import Dashboard from "../Dashboard/Dashboard";
+import Profile from "../profile";
+import Dashboard from "../dashboard";
 import {Route, Switch} from 'react-router-dom'
 import React from 'react'
-import createComponent from "../../router/LazyLoad";
+import createComponent from "../../router/lazyLoad";
 import NotFound from 'bundle-loader?lazy&name=notFound!pages/layouts/notFound';
+import Register from "../register";
 
 // 侧边栏的路由
 let sideMenuRouters = [
@@ -45,6 +46,8 @@ const RouterToContent = (props) => {
       {/*保证admin页面能渲染 dashboard 页面*/}
       <Route path={match.url} exact component={Dashboard} />
       <Route component={createComponent(NotFound)}/>
+      {/*注册页面 不需要显示在侧边栏中*/}
+      <Route exect component={Register} path={`${match.url}/register`} />
     </Switch>
   );
 };

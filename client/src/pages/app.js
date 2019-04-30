@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import Main from './layouts/Main'
-import Login from "./login/Login";
+import Main from './layouts/main'
+import Login from "./login/login";
 import {inject, observer} from 'mobx-react'
 
-@inject('UserStore') @observer
+@inject('userStore') @observer
 export default class App extends Component {
   render() {
-    const {isLogin} = this.props.UserStore;
+    const {isLogin} = this.props.userStore;
     return isLogin ? <Main/> : <Login/>;
   }
 }

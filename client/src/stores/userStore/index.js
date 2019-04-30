@@ -3,9 +3,10 @@ import {apiPost} from "../../utils/api-requester";
 import {API} from "../../utils/api-list";
 import {message} from 'antd'
 
+const USER_TOKEN = 'token';
 class UserStore {
   @observable userInfo = {};
-  @observable isLogin = false;
+  @observable isLogin = window.localStorage.getItem(USER_TOKEN) || false;
 
   @computed get token() {
     return this.userInfo.token || null;
@@ -22,8 +23,7 @@ class UserStore {
         }
         message.success('登陆成功');
         this.isLogin = true;
-        this.userInfo = resp.data.data;
-        window.localStorage.setItem('token', resp.data.data.access_token);
+        window.localStorage.setItem(USER_TOKEN, resp.data.data.token);
       })
     } catch (e) {
       message.error('登陆失败');
@@ -32,7 +32,29 @@ class UserStore {
         //todo
       })
     }
-  }
+  };
+
+  @action logout = () => {
+    window.localStorage.setItem(USER_TOKEN, '');
+    this.isLogin = false;
+    this.userInfo = {};
+    message.success('登出成功');
+  };
+
+  @action register = async (username, password) => {
+    let resp = await apiPost(API.auth.register, {username, password});
+    runInAction(() => {
+      let respData = resp.data;
+      if (respData.code !== 0) {
+        message.error(`注册失败：${respData.msg}`);
+      } else {
+        message.success('注册成功~~');
+        window.localStorage.setItem(USER_TOKEN, respData.data.token);
+        this.isLogin = true;
+        this.userInfo = respData.data.user;
+      }
+    })
+  };
 }
 
 export default new UserStore();

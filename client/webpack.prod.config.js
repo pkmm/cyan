@@ -29,7 +29,8 @@ const publicConfig = {
     new UglifyJSPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': JSON.stringify('production'),
+        'BASE_URL': JSON.stringify('http://47.101.58.36/api'),
       }
     }),
     new MiniCssExtractPlugin({

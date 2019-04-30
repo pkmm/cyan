@@ -17,7 +17,7 @@ const devConfig = {
     entry: {
         app: [
             'react-hot-loader/patch',
-            path.join(__dirname, 'src/Index.js')
+            path.join(__dirname, 'src/index.js')
         ]
     },
     output: {

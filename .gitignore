@@ -13,3 +13,4 @@ php/
 phps/
 *.cache
 /vendor
+./vscode

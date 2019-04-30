@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 
-class Dashboard extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -15,4 +15,4 @@ class Dashboard extends Component {
   }
 };
 
-export default Dashboard;
+export default Index;
