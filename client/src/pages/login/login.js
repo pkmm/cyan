@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {inject, observer} from 'mobx-react'
 import {Button, Checkbox, Form, Icon, Input,} from 'antd';
 import './index.less'
@@ -49,7 +49,7 @@ class Login extends Component {
             <Button type="primary" htmlType="submit" className="login-form-button">
               Log in
             </Button>
-            Or <a href="">register now!</a>
+            Or <Link to={`${this.props.match.url}/register`}>register now!</Link>
           </Form.Item>
         </Form>
       </div>

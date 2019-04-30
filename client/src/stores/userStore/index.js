@@ -23,8 +23,7 @@ class UserStore {
         }
         message.success('登陆成功');
         this.isLogin = true;
-        this.userInfo = resp.data.data;
-        window.localStorage.setItem(USER_TOKEN, resp.data.data.access_token);
+        window.localStorage.setItem(USER_TOKEN, resp.data.data.token);
       })
     } catch (e) {
       message.error('登陆失败');
@@ -40,7 +39,22 @@ class UserStore {
     this.isLogin = false;
     this.userInfo = {};
     message.success('登出成功');
-  }
+  };
+
+  @action register = async (username, password) => {
+    let resp = await apiPost(API.auth.register, {username, password});
+    runInAction(() => {
+      let respData = resp.data;
+      if (respData.code !== 0) {
+        message.error(`注册失败：${respData.msg}`);
+      } else {
+        message.success('注册成功~~');
+        window.localStorage.setItem(USER_TOKEN, respData.data.token);
+        this.isLogin = true;
+        this.userInfo = respData.data.user;
+      }
+    })
+  };
 }
 
 export default new UserStore();

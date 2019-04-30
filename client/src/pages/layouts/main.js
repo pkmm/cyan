@@ -71,7 +71,9 @@ class Main extends Component {
             margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, overflow: 'inherit'
           }}
           >
+            {/*渲染的侧边栏*/}
             <RouterToContent {...this.props} />
+
           </Content>
           {/*<Footer>Cyan</Footer>*/}
         </Layout>
