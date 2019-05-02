@@ -19,23 +19,23 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * App\Model\User
  *
  * @property int $id
- * @property string $username
+ * @property string|null $username
+ * @property string|null $openid
  * @property string $password
  * @property string $salt
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property-read Student $student
- * @property-read TiebaUser $tiebaUser
- * @property-read WechatUser $wechatUser
- * @method static Builder|User whereCreatedAt($value)
- * @method static Builder|User whereId($value)
- * @method static Builder|User wherePassword($value)
- * @method static Builder|User whereSalt($value)
- * @method static Builder|User whereUpdatedAt($value)
- * @method static Builder|User whereUsername($value)
- * @mixin Eloquent
- * @property string $openid
- * @method static Builder|User whereOpenid($value)
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \App\Model\Student $student
+ * @property-read \App\Model\TiebaUser $tiebaUser
+ * @property-read \App\Model\WechatUser $wechatUser
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\User whereOpenid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\User whereSalt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\User whereUsername($value)
+ * @mixin \Eloquent
  */
 class User extends Model implements Authenticatable, JWTSubject
 {

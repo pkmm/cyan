@@ -7,7 +7,9 @@ const API = {
     me: "auth/me"
   },
   student: {
-    getScores: "student/get_scores"
+    getScores: "student/scores",
+    setAccount: "student/update_student_account",
+    getSyncDetail: "student/sync_detail",
   }
 };
 

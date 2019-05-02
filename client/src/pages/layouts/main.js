@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
-import {Icon, Layout, Menu} from 'antd';
+import {Avatar, Dropdown, Icon, Layout, Menu} from 'antd';
 import {RouterToContent, sideMenuRouters} from 'pages/layouts/sider';
 import './main.less';
 import {Link, withRouter} from 'react-router-dom';
+import {inject, observer} from 'mobx-react'
 
 const {Header, Sider, Content} = Layout;
-const {Item} = Menu;
+const {Item, ItemGroup, SubMenu} = Menu;
+
+// 记录当前点击的侧边栏地址，刷新之后页面保持不变
+const SEDER_MENU_CLICKED = 'sider_menu_clicked';
 
 
-const SEDER_MENU_CLICKED = 'sider_menu_clicked'
-
-@withRouter
+@withRouter @inject('userStore') @observer
 class Main extends Component {
 
   constructor(props) {
@@ -29,7 +31,18 @@ class Main extends Component {
   };
 
   render() {
-    const {match} = this.props;
+    const {match, userStore} = this.props;
+    const menu = (
+      <Menu
+        mode='horizontal'
+      >
+        <ItemGroup title={'用户中心'}>
+          <Item>你好：{userStore.userInfo.username || 'Admin'}</Item>
+          <Item><span onClick={userStore.logout}>退出系统</span></Item>
+        </ItemGroup>
+
+      </Menu>
+    );
     return (
       <Layout style={{height: "100vh"}}>
         <Sider
@@ -66,14 +79,18 @@ class Main extends Component {
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
+            <div style={{float: 'right', lineHeight: '64px', marginRight: 18}}>
+              <Dropdown overlay={menu}>
+                <Avatar icon={'user'}/>
+              </Dropdown>
+            </div>
           </Header>
-          <Content style={{
-            margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, overflow: 'inherit'
-          }}
+          <Content
+            style={{
+              margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, overflow: 'inherit'
+            }}
           >
-            {/*渲染的侧边栏*/}
             <RouterToContent {...this.props} />
-
           </Content>
           {/*<Footer>Cyan</Footer>*/}
         </Layout>

@@ -9,11 +9,13 @@ namespace App\Contracts;
 
 interface StudentInterface
 {
+    public function getUid(): int;
+
     public function getStudentNumber(): string;
 
     public function getStudentPassword(): string;
 
-    public function updateStudentSchoolReport(array $schoolReports);
+    public function updateStudentSchoolReport(array $schoolReports): int;
 
     public function setStudentName(string $studentName);
 

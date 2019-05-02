@@ -3,7 +3,7 @@ import axios from 'axios'
 import {BASE_URL} from "../config";
 import {isPlainObject} from 'lodash/lang';
 import {DeviceType} from "../constants/deviceType";
-
+import UserStore from '../stores/userStore'
 /**
  * @param {axios} ax
  * @returns {function(*=, *=, *=): *}
@@ -104,22 +104,34 @@ const ax = axios.create({
   baseURL: BASE_URL,
   timeout: 3000,
   responseType: 'json',
+  // params: {
+  //   token: window.localStorage.getItem('token') || 'xxx_token',
+  //   device_type: DeviceType.WEB
+  // },
+  // api 调用都使用post进行
   transformRequest: (data) => {
     // 每个请求都要加上token
-    let token = window.localStorage.getItem('token');
-    if (token == null) {
-      token = '';
-    }
-    data['token'] = token;
+    data['token'] = window.localStorage.getItem('token') || '';
     data['device_type'] = DeviceType.WEB;
     if (isPlainObject(data)) data = qs.stringify(data);
     return data;
+  },
+  validateStatus: status => {
+    if (status >= 200 && status < 300) {
+      return true;
+    }
+    if (status === 401) {
+      // 删除过期的无效的token 使用户重新进行登录
+      window.localStorage.setItem('token', '');
+      UserStore.setIsLogin(false);
+    }
+    return false;
   }
 });
-ax.interceptors.request.use(function (config) {
-  // console.error(config, 'config')
-  return config;
-});
+// ax.interceptors.request.use(function (config) {
+//   // console.error(config, 'config')
+//   return config;
+// });
 
 export const apiGet = _get(ax);
 export const apiPost = _post(ax);

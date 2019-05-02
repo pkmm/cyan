@@ -24,3 +24,11 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 });
+
+Route::group([
+    'prefix' => 'student'
+], function () {
+    Route::post('/scores', 'StudentController@getScores');
+    Route::post('/update_student_account', 'UserController@setStudentAccount');
+    Route::post('/sync_detail', 'StudentController@getSyncDetail');
+});

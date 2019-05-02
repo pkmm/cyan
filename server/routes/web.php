@@ -25,10 +25,9 @@ Route::any('/test', 'TestController@test');
 /// hahaha
 /////////////////////////////
 
-Route::group(['middleware' => 'auth_user:USER, response_wrapper', 'prefix' => 'v1'], function () {
-    Route::post('/wx/login', 'WeChatController@wxLogin');
-    Route::get('/student/scores', 'StudentController@getScores');
-});
+//Route::group(['middleware' => 'auth_user:USER, response_wrapper', 'prefix' => 'v1'], function () {
+//    Route::post('/wx/login', 'WeChatController@wxLogin');
+//});
 
 Route::get('v1/zcmu/new_infos/{id?}', 'ZcmuController@getNewInfos')
     ->where('id', '[0-9]+')

@@ -16,4 +16,5 @@ class ErrorCodes
     const USER_NOT_FOUND = 10004;
     const USER_REGISTER_FAILED = 10005;
     const USERNAME_ALREADY_USED = 10006;
+    const CAN_NOT_HAVE_STUDENT = 10007;
 }

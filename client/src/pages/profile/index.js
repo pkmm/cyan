@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import SetAccount from './setAccount'
 
 class Index extends Component {
   constructor(props) {
@@ -8,9 +8,9 @@ class Index extends Component {
   }
   render() {
     return (
-      <div>some thing here. this is profile page content.</div>
+      <SetAccount />
     );
   }
-};
+}
 
 export default Index;

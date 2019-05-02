@@ -4,29 +4,34 @@ import {API} from "../../utils/api-list";
 import {message} from 'antd'
 
 const USER_TOKEN = 'token';
+
 class UserStore {
   @observable userInfo = {};
-  @observable isLogin = window.localStorage.getItem(USER_TOKEN) || false;
+  @observable isLogin = !!window.localStorage.getItem(USER_TOKEN);
 
   @computed get token() {
     return this.userInfo.token || null;
   }
+
+  @action setIsLogin = isLogin => {
+    this.isLogin = isLogin;
+  };
 
   @action loginAction = async (username, password) => {
     try {
       let resp = await apiPost(API.auth.login, {username, password});
       runInAction(() => {
         if (resp.data.code !== 0) {
-          console.error(resp.data);
           message.error('登陆失败');
           return
         }
         message.success('登陆成功');
         this.isLogin = true;
+        this.userInfo = resp.data.data.user;
         window.localStorage.setItem(USER_TOKEN, resp.data.data.token);
       })
     } catch (e) {
-      message.error('登陆失败');
+      message.error('登陆失败: ' + resp.data.data.msg);
       console.error(e);
       runInAction(() => {
         //todo
@@ -34,11 +39,19 @@ class UserStore {
     }
   };
 
-  @action logout = () => {
-    window.localStorage.setItem(USER_TOKEN, '');
-    this.isLogin = false;
-    this.userInfo = {};
-    message.success('登出成功');
+  @action logout = async () => {
+    let resp = await apiPost(API.auth.logout);
+    runInAction(() => {
+      const respData = resp.data;
+      if (respData.code === 0) {
+        window.localStorage.setItem(USER_TOKEN, '');
+        this.isLogin = false;
+        this.userInfo = {};
+        message.success('登出成功');
+      } else {
+        message.error('登出失败: ' + respData.msg);
+      }
+    });
   };
 
   @action register = async (username, password) => {

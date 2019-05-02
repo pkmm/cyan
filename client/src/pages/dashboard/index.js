@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-
+import ScoreTable from './scoreTable'
+import DetailCard from './detailCard'
 
 class Index extends Component {
   constructor(props) {
@@ -9,10 +10,12 @@ class Index extends Component {
 
   render() {
     return (
-      <div>some thing here. this is dashboard page content.
+      <div>
+        <ScoreTable />
+        <DetailCard />
       </div>
     );
   }
-};
+}
 
 export default Index;

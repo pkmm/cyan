@@ -22,20 +22,20 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property string $num
  * @property string $pwd
- * @property string $name
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection|Score[] $scores
- * @method static Builder|Student whereCreatedAt($value)
- * @method static Builder|Student whereId($value)
- * @method static Builder|Student whereName($value)
- * @method static Builder|Student whereNum($value)
- * @method static Builder|Student wherePwd($value)
- * @method static Builder|Student whereUpdatedAt($value)
- * @method static Builder|Student whereUserId($value)
- * @mixin Eloquent
+ * @property string|null $name
  * @property int $can_sync
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Model\Score[] $scores
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereCanSync($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereNum($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student wherePwd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereUserId($value)
+ * @mixin \Eloquent
  */
 class Student extends Model implements StudentInterface
 {
@@ -57,10 +57,15 @@ class Student extends Model implements StudentInterface
         return $this->pwd;
     }
 
-    public function updateStudentSchoolReport(array $schoolReports)
+    public function updateStudentSchoolReport(array $schoolReports): int
     {
         if (count($schoolReports) == $this->scores()->count()) {
-            return;
+            // 在成绩数量没变化的情况下， 随机的更新成绩
+            $x = mt_rand(1, 100);
+            if ($x < 2) {
+                return count($schoolReports);
+            }
+            $this->scores()->delete();
         }
         $data = [];
         foreach ($schoolReports as $schoolReport) {
@@ -79,6 +84,7 @@ class Student extends Model implements StudentInterface
         }
 
         $this->scores()->insert($data);
+        return sizeof($data);
     }
 
     public function setStudentName(string $studentName)
@@ -91,5 +97,15 @@ class Student extends Model implements StudentInterface
     public function getStudentName(): string
     {
         return $this->name;
+    }
+
+    public function getUid(): int
+    {
+        return $this->id;
+    }
+
+    public function syncDetail()
+    {
+        return $this->hasOne(SyncStudentScoreDetail::class, 'student_id', 'id');
     }
 }

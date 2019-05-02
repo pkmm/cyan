@@ -20,15 +20,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $user_id
  * @property string $bduss
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection|Tieba[] $tiebas
- * @method static Builder|TiebaUser whereBduss($value)
- * @method static Builder|TiebaUser whereCreatedAt($value)
- * @method static Builder|TiebaUser whereId($value)
- * @method static Builder|TiebaUser whereUpdatedAt($value)
- * @method static Builder|TiebaUser whereUserId($value)
- * @mixin Eloquent
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Model\Tieba[] $tiebas
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\TiebaUser whereBduss($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\TiebaUser whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\TiebaUser whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\TiebaUser whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\TiebaUser whereUserId($value)
+ * @mixin \Eloquent
  */
 class TiebaUser extends Model
 {

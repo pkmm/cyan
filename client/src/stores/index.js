@@ -1,5 +1,7 @@
 import userStore from './userStore'
+import studentStore from './studentStore'
 
 export {
-  userStore
+  userStore,
+  studentStore
 }

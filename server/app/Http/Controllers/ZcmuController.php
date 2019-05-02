@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 
 class ZcmuController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['getNewInfos']]);
+    }
+
     public function getNewInfos(Request $request)
     {
         $id = $request->route('id');

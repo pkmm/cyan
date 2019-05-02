@@ -15,23 +15,23 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Model\NewInfo
  *
- * @mixin Eloquent
  * @property int $id
  * @property string $title
  * @property int $title_crc32
  * @property string $url 新闻详情的地址
- * @property string $post_at 新闻发表的时间
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @method static Builder|NewInfo whereCreatedAt($value)
- * @method static Builder|NewInfo whereId($value)
- * @method static Builder|NewInfo wherePostAt($value)
- * @method static Builder|NewInfo whereTitle($value)
- * @method static Builder|NewInfo whereTitleCrc32($value)
- * @method static Builder|NewInfo whereUpdatedAt($value)
- * @method static Builder|NewInfo whereUrl($value)
  * @property string $detail
- * @method static Builder|NewInfo whereDetail($value)
+ * @property string $post_at 新闻发表的时间
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\NewInfo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\NewInfo whereDetail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\NewInfo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\NewInfo wherePostAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\NewInfo whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\NewInfo whereTitleCrc32($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\NewInfo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\NewInfo whereUrl($value)
+ * @mixin \Eloquent
  */
 class NewInfo extends Model
 {
