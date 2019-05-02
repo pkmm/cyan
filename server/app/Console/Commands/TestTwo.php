@@ -40,7 +40,9 @@ class TestTwo extends Command
      */
     public function handle()
     {
-        User::with(['student'])->chunk(1000, function (Collection $users) {
+        User::with(['student'])
+            ->orderBy('id', 'desc') // 优先更新新用户
+            ->chunk(1000, function (Collection $users) {
             /** @var User $user */
             foreach ($users as $user) {
                 $student = $user->student;
