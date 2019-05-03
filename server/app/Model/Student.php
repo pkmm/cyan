@@ -62,7 +62,7 @@ class Student extends Model implements StudentInterface
         if (count($schoolReports) == $this->scores()->count()) {
             // 在成绩数量没变化的情况下， 随机的更新成绩
             $x = mt_rand(1, 100);
-            if ($x < 2) {
+            if ($x > 2) {
                 return count($schoolReports);
             }
             $this->scores()->delete();
