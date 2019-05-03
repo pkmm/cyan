@@ -59,13 +59,16 @@ class Student extends Model implements StudentInterface
 
     public function updateStudentSchoolReport(array $schoolReports): int
     {
+
+        $doUpdate = false;
         if (count($schoolReports) == $this->scores()->count()) {
             // 在成绩数量没变化的情况下， 随机的更新成绩
             $x = mt_rand(1, 100);
             if ($x > 2) {
                 return count($schoolReports);
             }
-            $this->scores()->delete();
+            // 需要进行更新
+            $doUpdate = true;
         }
         $data = [];
         foreach ($schoolReports as $schoolReport) {
@@ -83,7 +86,25 @@ class Student extends Model implements StudentInterface
             ];
         }
 
-        $this->scores()->insert($data);
+        if ($doUpdate) {
+            foreach ($data as $datum) {
+                $this->scores()
+                    ->where('student_id', $this->id)
+                    ->where('xn', $datum['xn'])
+                    ->where('xq', $datum['xq'])
+                    ->where('kcmc', $datum['kcmc'])
+                    ->where('type', $datum['type'])
+                    ->update([
+                        'xf' => $datum['xf'],
+                        'jd' => $datum['jd'],
+                        'cj' => $datum['cj'],
+                        'bkcj' => $datum['bkcj'],
+                        'cxcj' => $datum['cxcj']
+                    ]);
+            }
+        } else {
+            $this->scores()->insert($data);
+        }
         return sizeof($data);
     }
 
