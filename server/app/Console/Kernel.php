@@ -3,8 +3,8 @@
 namespace App\Console;
 
 use App\Console\Commands\MigrateStuInfoToUserTable;
-use App\Console\Commands\TestOne;
-use App\Console\Commands\TestTwo;
+use App\Console\Commands\CheckGolangServiceStatus;
+use App\Console\Commands\SyncStudentScores;
 use App\Manager\ScheduleManager;
 use App\Manager\ZcmuManager;
 use Illuminate\Console\Scheduling\Schedule;
@@ -19,8 +19,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        TestOne::class,
-        TestTwo::class,
+        CheckGolangServiceStatus::class,
+        SyncStudentScores::class,
         MigrateStuInfoToUserTable::class,
     ];
 
@@ -32,24 +32,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //        $this->notify($schedule);
-        //        $schedule->command('test:one')->everyMinute()->runInBackground();
+        $schedule->command('check:go_service')->everyMinute()->runInBackground();
 
-
-        $schedule->command('test:two')
+        $schedule->command('sync:student_scores')
                  ->everyTenMinutes()
                  ->runInBackground()
                  ->withoutOverlapping();
 
-
-        //        $schedule->call(function () {
-        //            self::getZcmuNewInfos();
-        //        })->everyTenMinutes();
-    }
-
-    private function getZcmuNewInfos()
-    {
-        ZcmuManager::retrieveNewInfos();
     }
 
     /**
@@ -60,14 +49,5 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         require base_path('routes/console.php');
-    }
-
-    private function notify(Schedule $schedule)
-    {
-        $schedule->call(function () {
-            Log::info('开始任务notify 时间是: ' . date('Y-m-d H:i:s'));
-            ScheduleManager::dailyNotify();
-            Log::info('任务结束notify 时间是: ' . date('Y-m-d H:i:s'));
-        })->everyMinute()->runInBackground();
     }
 }

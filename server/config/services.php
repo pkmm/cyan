@@ -43,6 +43,14 @@ return [
         'app_id' => env('MINIPROGRAM_APP_ID'),
         'secret' => env('MINIPROGRAM_SECRET'),
         'random_str' => env('MINI_PROGRAM_REQUEST_RANDOM_STR')
+    ],
+    'notify' => [
+        'wx_pusher' => [
+            'id' => env('WXPUSER_ID'),
+            'server' => env('WXPUSER_SERVER')
+        ],
+        'fang_tang' => [
+            'sckey' => env('SCKEY')
+        ]
     ]
-
 ];

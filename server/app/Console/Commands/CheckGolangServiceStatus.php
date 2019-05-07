@@ -7,21 +7,21 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Console\Command;
 
-class TestOne extends Command
+class CheckGolangServiceStatus extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'test:one';
+    protected $signature = 'check:go_service';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = '检测 golang 写的service的状态';
 
     /**
      * Create a new command instance.
@@ -40,7 +40,7 @@ class TestOne extends Command
      */
     public function handle()
     {
-        $url = 'https://api.52pkm.cn/zf/get_failed_lessons';
+        $url = config('VERIFY_CODE_SERVER');
         $client = new Client();
         try {
             $rep = $client->get($url, ['verify' => false, 'timeout' => 10.0]);
@@ -54,7 +54,8 @@ class TestOne extends Command
         }
 
         $ret = $rep->getBody()->getContents();
-        if (count(json_decode($ret, true)) != 10) {
+        $jsonData = json_decode($ret);
+        if (!isset($jsonData['code']) || $jsonData['code'] != 10006) {
             MonitorUtil::notify(['text' => 'api 存在问题']);
         }
     }

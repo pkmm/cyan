@@ -7,21 +7,21 @@ use App\Model\User;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 
-class TestTwo extends Command
+class SyncStudentScores extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'test:two';
+    protected $signature = 'sync:student_scores';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = '同步教务系统成绩';
 
     /**
      * Create a new command instance.
