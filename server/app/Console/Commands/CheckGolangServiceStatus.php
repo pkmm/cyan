@@ -54,7 +54,7 @@ class CheckGolangServiceStatus extends Command
         }
 
         $ret = $rep->getBody()->getContents();
-        $jsonData = json_decode($ret);
+        $jsonData = json_decode($ret, true);
         if (!isset($jsonData['code']) || $jsonData['code'] != 10006) {
             MonitorUtil::notify(['text' => 'api 存在问题']);
         }
