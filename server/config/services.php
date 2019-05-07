@@ -36,7 +36,8 @@ return [
     ],
 
     'verifycode' => [
-        'host' => env('VERIFY_CODE_SERVER')
+        'host' => env('VERIFY_CODE_SERVER'),
+        'host_check' => env('VERIFY_CODE_SERVER_CHECK')
     ],
 
     'mini_program' => [

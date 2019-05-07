@@ -40,7 +40,7 @@ class CheckGolangServiceStatus extends Command
      */
     public function handle()
     {
-        $url = config('VERIFY_CODE_SERVER');
+        $url = config('services.verifycode.host_check');
         $client = new Client();
         try {
             $rep = $client->get($url, ['verify' => false, 'timeout' => 10.0]);
