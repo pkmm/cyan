@@ -169,8 +169,10 @@ class AuthController extends Controller
      */
     public function logout()
     {
+        if (!auth()->check()) {
+            return response()->json('not auth.', 401);
+        }
         auth()->logout();
-
         return response()->json('Successfully logged out.');
     }
 
