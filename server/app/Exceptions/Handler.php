@@ -66,6 +66,9 @@ class Handler extends ExceptionHandler
         if (config('app.env') != 'prod') {
             return parent::render($request, $exception);
         }
+        if ($exception instanceof AuthenticationException) {
+            return $this->unauthenticated($request, $exception);
+        }
         return response([
             'code' => ErrorCodes::INNER_ERROR,
             'msg' => 'internal server error',
