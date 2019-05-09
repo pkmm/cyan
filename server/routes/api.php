@@ -16,6 +16,7 @@
 // });
 
 Route::group([
+    'middleware' => 'api',
     'prefix' => 'auth'
 ], function () {
     Route::post('register', 'AuthController@register');
@@ -26,6 +27,7 @@ Route::group([
 });
 
 Route::group([
+    'middleware' => 'api',
     'prefix' => 'student'
 ], function () {
     Route::post('/scores', 'StudentController@getScores');
