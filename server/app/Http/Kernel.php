@@ -46,15 +46,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewareGroups = [
-        'web' => [
-            EncryptCookies::class,
-            AddQueuedCookiesToResponse::class,
-            StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            ShareErrorsFromSession::class,
-            // \App\Http\Middleware\VerifyCsrfToken::class,
-            SubstituteBindings::class,
-        ],
+//        'web' => [
+//            EncryptCookies::class,
+//            AddQueuedCookiesToResponse::class,
+//            StartSession::class,
+//            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+//            ShareErrorsFromSession::class,
+//            // \App\Http\Middleware\VerifyCsrfToken::class,
+//            SubstituteBindings::class,
+//        ],
 
         'api' => [
             'throttle:60,1',
