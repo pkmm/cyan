@@ -67,7 +67,11 @@ class Handler extends ExceptionHandler
             return parent::render($request, $exception);
         }
         if ($exception instanceof AuthenticationException) {
-            return $this->unauthenticated($request, $exception);
+            return response()->json([
+                'code' => ErrorCodes::USER_NOT_LOGIN,
+                'msg' => 'please login first',
+                'data' => null,
+            ], 401);
         }
         return response([
             'code' => ErrorCodes::INNER_ERROR,
