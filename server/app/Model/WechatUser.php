@@ -27,22 +27,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $union_id
  * @property string $language
  * @property string $gender
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereAvatar($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereCity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereGender($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereLanguage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereNickname($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereOpenId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereProvince($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereUnionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\WechatUser whereUserId($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|WechatUser whereAvatar($value)
+ * @method static Builder|WechatUser whereCity($value)
+ * @method static Builder|WechatUser whereCountry($value)
+ * @method static Builder|WechatUser whereCreatedAt($value)
+ * @method static Builder|WechatUser whereGender($value)
+ * @method static Builder|WechatUser whereId($value)
+ * @method static Builder|WechatUser whereLanguage($value)
+ * @method static Builder|WechatUser whereNickname($value)
+ * @method static Builder|WechatUser whereOpenId($value)
+ * @method static Builder|WechatUser whereProvince($value)
+ * @method static Builder|WechatUser whereUnionId($value)
+ * @method static Builder|WechatUser whereUpdatedAt($value)
+ * @method static Builder|WechatUser whereUserId($value)
+ * @mixin Eloquent
  */
 class WechatUser extends Model
 {

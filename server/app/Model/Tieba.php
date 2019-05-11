@@ -21,15 +21,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $tieba_user_id
  * @property string $kw
  * @property int $fid
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Tieba whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Tieba whereFid($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Tieba whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Tieba whereKw($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Tieba whereTiebaUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Tieba whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Tieba whereCreatedAt($value)
+ * @method static Builder|Tieba whereFid($value)
+ * @method static Builder|Tieba whereId($value)
+ * @method static Builder|Tieba whereKw($value)
+ * @method static Builder|Tieba whereTiebaUserId($value)
+ * @method static Builder|Tieba whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Tieba extends Model
 {

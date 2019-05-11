@@ -24,18 +24,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $pwd
  * @property string|null $name
  * @property int $can_sync
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Model\Score[] $scores
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereCanSync($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereNum($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student wherePwd($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Student whereUserId($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Score[] $scores
+ * @method static Builder|Student whereCanSync($value)
+ * @method static Builder|Student whereCreatedAt($value)
+ * @method static Builder|Student whereId($value)
+ * @method static Builder|Student whereName($value)
+ * @method static Builder|Student whereNum($value)
+ * @method static Builder|Student wherePwd($value)
+ * @method static Builder|Student whereUpdatedAt($value)
+ * @method static Builder|Student whereUserId($value)
+ * @mixin Eloquent
  */
 class Student extends Model implements StudentInterface
 {

@@ -27,22 +27,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $xf
  * @property string|null $bkcj
  * @property string|null $cxcj
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereBkcj($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereCj($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereCxcj($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereJd($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereKcmc($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereStudentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereXf($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereXn($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Score whereXq($value)
- * @mixin \Eloquent
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @method static Builder|Score whereBkcj($value)
+ * @method static Builder|Score whereCj($value)
+ * @method static Builder|Score whereCreatedAt($value)
+ * @method static Builder|Score whereCxcj($value)
+ * @method static Builder|Score whereId($value)
+ * @method static Builder|Score whereJd($value)
+ * @method static Builder|Score whereKcmc($value)
+ * @method static Builder|Score whereStudentId($value)
+ * @method static Builder|Score whereType($value)
+ * @method static Builder|Score whereUpdatedAt($value)
+ * @method static Builder|Score whereXf($value)
+ * @method static Builder|Score whereXn($value)
+ * @method static Builder|Score whereXq($value)
+ * @mixin Eloquent
  */
 class Score extends Model
 {

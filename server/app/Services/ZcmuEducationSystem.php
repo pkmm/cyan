@@ -52,13 +52,18 @@ class ZcmuEducationSystem implements EducationSystemInterface
         $this->verifyCodeRecognize = $verifyCodeRecognize;
         $cookieJar = new CookieJar();
         $this->client = new Client([
-            'timeout' => 10,
+            'timeout' => 60,
             'verify' => false,
             'cookies' => $cookieJar,
         ]);
     }
 
     public function getLoginFailedReason()
+    {
+        return $this->loginErrorMsg;
+    }
+
+    public function getLoginErrorInfo()
     {
         return $this->loginErrorMsg;
     }
@@ -77,14 +82,14 @@ class ZcmuEducationSystem implements EducationSystemInterface
         ];
         $hasError = false;
         foreach ($patterns as $pattern) {
-            preg_match("/{$pattern}/us", $this->currentPage, $matches);
+            preg_match("/{$pattern}/s", $this->currentPage, $matches);
             if (!empty($matches)) {
                 $this->loginErrorMsg = $matches[0];
                 $hasError = true;
                 break;
             }
         }
-        return $hasError;
+        return $hasError == false;
     }
 
     /**

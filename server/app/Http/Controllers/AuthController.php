@@ -92,6 +92,7 @@ class AuthController extends Controller
             throw new InvalidRequestParameters('登陆失败,参数不合法');
         }
         $user = auth('api')->user();
+        $user->load('student');
         return compact('user', 'token');
     }
 
