@@ -40,7 +40,7 @@ class UserController extends Controller
             throw new InvalidRequestParameters($srv->getLoginErrorInfo());
         }
         $student = StudentManager::setAccount($user, $studentNumber, $password);
-        $this->dispatch(new SyncZcmuEducationSystemInfo($student));
+        $this->dispatch((new SyncZcmuEducationSystemInfo($student))->onQueue('high'));
         $student = $user->student;
         return compact('student');
     }
