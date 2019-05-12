@@ -20,8 +20,10 @@ class UserController extends Controller
 
     /**
      * @param Request $request
+     * @param VerifyCodeRecognizeInterface $verifyCodeRecognize
      * @return array
      * @throws InvalidRequestParameters
+     * @throws \App\Services\CanNotDecodeViewStateException
      */
     public function setStudentAccount(Request $request, VerifyCodeRecognizeInterface $verifyCodeRecognize)
     {
@@ -40,7 +42,7 @@ class UserController extends Controller
             throw new InvalidRequestParameters($srv->getLoginErrorInfo());
         }
         $student = StudentManager::setAccount($user, $studentNumber, $password);
-        $this->dispatch((new SyncZcmuEducationSystemInfo($student))->onQueue('high'));
+        dispatch((new SyncZcmuEducationSystemInfo($student))->onQueue('high'));
         $student = $user->student;
         return compact('student');
     }
