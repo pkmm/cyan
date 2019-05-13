@@ -43,9 +43,6 @@ class ZcmuEducationSystem implements EducationSystemInterface
 
     private $schoolReportUrl;
 
-    private $loginErrorMsg = null;
-
-
     public function __construct(StudentInterface $student, VerifyCodeRecognizeInterface $verifyCodeRecognize)
     {
         $this->student = $student;
@@ -63,13 +60,10 @@ class ZcmuEducationSystem implements EducationSystemInterface
         return $this->loginErrorMsg;
     }
 
-    public function getLoginErrorInfo()
-    {
-        return $this->loginErrorMsg;
-    }
-
     /**
-     * check status after login action.
+     * @throws AccountShutdownException
+     * @throws PasswordWrongException
+     * @throws VerifyCodeWrongException
      */
     private function checkAccountStatus()
     {
@@ -80,21 +74,28 @@ class ZcmuEducationSystem implements EducationSystemInterface
             self::PASSWORD_WRONG_EXCESS_LIMIT,
             self::PASSWORD_WRONG_SOMETIMES
         ];
-        $hasError = false;
         foreach ($patterns as $pattern) {
             preg_match("/{$pattern}/s", $this->currentPage, $matches);
             if (!empty($matches)) {
-                $this->loginErrorMsg = $matches[0];
-                $hasError = true;
-                break;
+                if ($pattern == self::VERIFY_CODE_WRONG) {
+                    throw new VerifyCodeWrongException($pattern);
+                } else if ($pattern == self::PASSWORD_WRONG ||
+                    $pattern == self::PASSWORD_WRONG_EXCESS_LIMIT ||
+                    $pattern == self::PASSWORD_WRONG_SOMETIMES) {
+                    throw new PasswordWrongException($pattern);
+                } else if ($pattern == self::ACCOUNT_NOT_VALID) {
+                    throw new AccountShutdownException($pattern);
+                }
             }
         }
-        return $hasError == false;
     }
 
     /**
-     * @return bool
+     * @return void
+     * @throws AccountShutdownException
      * @throws CanNotDecodeViewStateException
+     * @throws PasswordWrongException
+     * @throws VerifyCodeWrongException
      */
     public function login()
     {
@@ -128,7 +129,7 @@ class ZcmuEducationSystem implements EducationSystemInterface
         // after post login.
         $this->currentPage = $this->convertToUtf8FromGb2312($html);
         // check if login successful or if an error occurs.
-        return $this->checkAccountStatus();
+        $this->checkAccountStatus();
     }
 
     // 输入筛选条件 查询成绩
@@ -222,9 +223,12 @@ class ZcmuEducationSystem implements EducationSystemInterface
 
     /**
      * @return array
+     * @throws AccountShutdownException
      * @throws CanNotDecodeViewStateException
      * @throws GetSchoolReportException
      * @throws GetUrlOfGetSchoolReportFailedException
+     * @throws PasswordWrongException
+     * @throws VerifyCodeWrongException
      */
     public function getSchoolReport(): array
     {

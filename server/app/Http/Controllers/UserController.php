@@ -8,6 +8,10 @@ use App\Exceptions\InvalidRequestParameters;
 use App\Jobs\SyncZcmuEducationSystemInfo;
 use App\Manager\StudentManager;
 use App\Model\Student;
+use App\Services\AccountShutdownException;
+use App\Services\CanNotDecodeViewStateException;
+use App\Services\PasswordWrongException;
+use App\Services\VerifyCodeWrongException;
 use App\Services\ZcmuEducationSystem;
 use Illuminate\Http\Request;
 
@@ -22,8 +26,11 @@ class UserController extends Controller
      * @param Request $request
      * @param VerifyCodeRecognizeInterface $verifyCodeRecognize
      * @return array
+     * @throws CanNotDecodeViewStateException
      * @throws InvalidRequestParameters
-     * @throws \App\Services\CanNotDecodeViewStateException
+     * @throws AccountShutdownException
+     * @throws PasswordWrongException
+     * @throws VerifyCodeWrongException
      */
     public function setStudentAccount(Request $request, VerifyCodeRecognizeInterface $verifyCodeRecognize)
     {
@@ -38,9 +45,7 @@ class UserController extends Controller
         $student->num = $studentNumber;
         $student->pwd = $password;
         $srv = new ZcmuEducationSystem($student, $verifyCodeRecognize);
-        if (!$srv->login()) {
-            throw new InvalidRequestParameters($srv->getLoginErrorInfo());
-        }
+        $srv->login();
         $student = StudentManager::setAccount($user, $studentNumber, $password);
         dispatch((new SyncZcmuEducationSystemInfo($student))->onQueue('high'));
         $student = $user->student;

@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\MigrateStuInfoToUserTable;
 use App\Console\Commands\CheckGolangServiceStatus;
+use App\Console\Commands\ResetStudentCanSyncFlag;
 use App\Console\Commands\SyncStudentScores;
 use App\Manager\ScheduleManager;
 use App\Manager\ZcmuManager;
@@ -22,6 +23,7 @@ class Kernel extends ConsoleKernel
         CheckGolangServiceStatus::class,
         SyncStudentScores::class,
         MigrateStuInfoToUserTable::class,
+        ResetStudentCanSyncFlag::class,
     ];
 
     /**
@@ -38,6 +40,8 @@ class Kernel extends ConsoleKernel
                  ->everyTenMinutes()
                  ->runInBackground()
                  ->withoutOverlapping();
+
+        $schedule->command('')->dailyAt('23:55');
 
     }
 
