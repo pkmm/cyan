@@ -32,6 +32,7 @@ class SyncZcmuEducationSystemInfo implements ShouldQueue
 
     public function handle(VerifyCodeRecognizeInterface $verifyCodeRecognize)
     {
+        Log::info("queue[$this->queue]开始执行啦");
         $student = Student::whereId($this->studentId)->first();
         $educationSystem = new ZcmuEducationSystem(
             $student,
@@ -68,6 +69,5 @@ class SyncZcmuEducationSystemInfo implements ShouldQueue
             $msg,
             $count
         );
-
     }
 }
