@@ -46,7 +46,7 @@ class SyncStudentScores extends Command
             /** @var User $user */
             foreach ($users as $user) {
                 $student = $user->student;
-                if ($student) {
+                if ($student && $student->can_sync) {
                     dispatch(new SyncZcmuEducationSystemInfo($student->id));
                 }
             }
