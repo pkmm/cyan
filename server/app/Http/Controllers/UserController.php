@@ -45,7 +45,11 @@ class UserController extends Controller
         $student->num = $studentNumber;
         $student->pwd = $password;
         $srv = new ZcmuEducationSystem($student, $verifyCodeRecognize);
-        $srv->login();
+        try {
+            $srv->login();
+        } catch (\Exception $e) {
+            throw new InvalidRequestParameters($e->getMessage());
+        }
         $student = StudentManager::setAccount($user, $studentNumber, $password);
         dispatch((new SyncZcmuEducationSystemInfo($student->id))->onQueue('high'));
         $student = $user->student;
