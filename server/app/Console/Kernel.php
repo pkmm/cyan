@@ -36,12 +36,12 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('check:go_service')->everyMinute()->runInBackground();
 
-        $schedule->command('sync:student_scores')
-                 ->everyTenMinutes()
-                 ->runInBackground()
-                 ->withoutOverlapping();
+//        $schedule->command('sync:student_scores')
+//                 ->everyTenMinutes()
+//                 ->runInBackground()
+//                 ->withoutOverlapping();
 
-        $schedule->command('')->dailyAt('23:55');
+//        $schedule->command('')->dailyAt('23:55');
 
     }
 
